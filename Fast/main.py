@@ -33,6 +33,7 @@ def agregarUsuario(usuario:dict):
     usuarios.append(usuario)    
     return usuario
 
+# Endpoint - Modificar usuario
 @app.put('/usuariosPut/{id}', tags=['Operaciones CRUD'])
 def usuariosPut(id:int, usuarioActualizado:dict):
     for index, usr in enumerate(usuarios):
@@ -40,3 +41,13 @@ def usuariosPut(id:int, usuarioActualizado:dict):
             usuarios[index].update(usuarioActualizado)
             return usuarios[index]
     raise HTTPException(status_code=400, detail="El id no existe")
+
+# Endpoint - Eliminar usuario
+@app.delete('/usuarioDelete/{id}', tags=['Operaciones CRUD'])
+def usuariosDelete(id: int):
+    for index, usr in enumerate(usuarios):
+        if usr["id"] == id:
+            usuarios.pop(index) 
+            return {"message": "Usuario eliminado", "usuarios": usuarios}
+    raise HTTPException(status_code=404, detail='Id no existente.')
+    
