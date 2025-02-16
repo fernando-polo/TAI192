@@ -63,9 +63,18 @@ def crear_nueva_tarea(tarea:dict):
 # Endpoint - Actualizar una tarea existente
 @app.put("/editarTarea/{id}", tags = ["Endpoints Principales"])
 def editar_tarea(id:int, tareaU: dict):
-    for index, tars in enumerate(tareas):
-        if tars["id"] == id:
+    for index, tar in enumerate(tareas):
+        if tar["id"] == id:
             tareas[index].update(tareaU)
             return tareas[index]
     raise HTTPException(status_code=400, detail="El id no existe")
 
+
+# Endpoint - Eliminar una tarea
+@app.delete("/tareaEliminar/{id}", tags=["Endpoints Principales"])
+def eliminar_tarea(id:int):
+    for index, tar in enumerate(tareas):
+        if tar["id"] == id:
+            tareas.pop(index)
+            return {'message':'Se eliminó exitosamente la tarea', 'tareas existentes: ':tareas}
+    raise HTTPException(status_code=400, detail="El id no existe")       
