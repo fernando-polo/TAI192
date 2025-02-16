@@ -44,10 +44,21 @@ tareas = [{
 def home():
     return {"message":"hola mundo"}
 
+
 # Endpoint - Obtener todas las tareas
 @app.get("/tarea", tags=["Endpoints Principales"])
 def todas_las_tareas():
     return tareas
+
+
+# Endpoint - Obtener una tarea específica por su ID
+@app.get("/obtenerTarea/{id}", tags=["Endpoints Principales"])
+def obtener_tarea(id:int):
+    for index, tar in enumerate(tareas):
+        if tar["id"] == id:
+            return tareas[index]
+    raise HTTPException(status_code=400, detail="Id no existe.")
+
 
 # Endpoint - Crear nueva tarea
 @app.post("/tareaNueva/", tags=["Endpoints Principales"])
