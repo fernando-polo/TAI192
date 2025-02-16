@@ -60,3 +60,12 @@ def crear_nueva_tarea(tarea:dict):
     return tarea
 
 
+# Endpoint - Actualizar una tarea existente
+@app.put("/editarTarea/{id}", tags = ["Endpoints Principales"])
+def editar_tarea(id:int, tareaU: dict):
+    for index, tars in enumerate(tareas):
+        if tars["id"] == id:
+            tareas[index].update(tareaU)
+            return tareas[index]
+    raise HTTPException(status_code=400, detail="El id no existe")
+
