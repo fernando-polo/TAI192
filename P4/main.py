@@ -2,11 +2,13 @@ from fastapi import FastAPI, HTTPException
 from typing import Optional
 
 
+
 app = FastAPI(
     title="To-do-List",
     description="API - Lista de Tareas",
     version="1.0"
 )
+
 
 tareas = [{
             "id": 1,
