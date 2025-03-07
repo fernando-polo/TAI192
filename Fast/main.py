@@ -1,8 +1,9 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from typing import Optional, List
 from modelsPydantic import modeloUsuario, modeloAuth
 from genToken import createToken
 from fastapi.responses import JSONResponse
+from middlewares import BearerJWT
 
 app = FastAPI(
     title="Mi primer API 192",
@@ -36,7 +37,7 @@ def login(autorización:modeloAuth):
 
 
 #Endpoint CONSULTA TODOS
-@app.get('/todosUsuarios', response_model = List[modeloUsuario], tags=['Operaciones CRUD'])
+@app.get('/todosUsuarios', dependencies=[Depends(BearerJWT())], response_model = List[modeloUsuario], tags=['Operaciones CRUD'])
 def leerUsuarios():
     return usuarios
 
