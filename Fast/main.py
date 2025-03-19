@@ -4,12 +4,17 @@ from modelsPydantic import modeloUsuario, modeloAuth
 from genToken import createToken
 from fastapi.responses import JSONResponse
 from middlewares import BearerJWT
+from DB.conexion import Session, engine, Base
+from models.modelsDB import User
 
 app = FastAPI(
     title="Mi primer API 192",
     description="Fernando Gómez, primeros pasos en fastAPI",
     version='1.0.1'
 )
+
+
+Base.metadata.create_all(bind = engine)
 
 
 # BD ficticia
